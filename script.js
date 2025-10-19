@@ -327,5 +327,5 @@ startButton.addEventListener('click', async () => {
 
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('特雷门手部控制器已加载');
+    console.log('🎭 音空手舞已加载');
 });
