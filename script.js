@@ -95,8 +95,11 @@ function drawScaleUI() {
     canvasCtx.textAlign = "left";
     canvasCtx.textBaseline = "middle";
 
+    // 计算音符位置和横线位置，确保完全平行
+    const noteHeight = canvasElement.height / noteScale.length;
+    
     noteScale.forEach((note, index) => {
-        const y = (index + 0.5) * (canvasElement.height / noteScale.length);
+        const y = (index + 0.5) * noteHeight;
         
         // 高亮当前播放的音符
         if (note === lastPlayedNote) {
@@ -116,11 +119,24 @@ function drawScaleUI() {
         canvasCtx.fillText(note, 20, y);
     });
 
-    // 绘制音阶指示线
+    // 绘制音阶指示线 - 与音符位置完全平行
     canvasCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
     canvasCtx.lineWidth = 1;
-    for (let i = 0; i <= noteScale.length; i++) {
-        const y = i * (canvasElement.height / noteScale.length);
+    
+    // 为每个音符绘制对应的横线
+    noteScale.forEach((note, index) => {
+        const y = (index + 0.5) * noteHeight;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(80, y);
+        canvasCtx.lineTo(canvasElement.width - 20, y);
+        canvasCtx.stroke();
+    });
+    
+    // 绘制音符之间的分隔线
+    canvasCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    canvasCtx.lineWidth = 0.5;
+    for (let i = 1; i < noteScale.length; i++) {
+        const y = i * noteHeight;
         canvasCtx.beginPath();
         canvasCtx.moveTo(80, y);
         canvasCtx.lineTo(canvasElement.width - 20, y);
@@ -184,8 +200,8 @@ async function checkCameraPermission() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
-                width: 640, 
-                height: 480,
+                width: 800, 
+                height: 600,
                 facingMode: 'user' // 前置摄像头
             } 
         });
@@ -258,8 +274,8 @@ startButton.addEventListener('click', async () => {
             onFrame: async () => {
                 await hands.send({image: videoElement});
             },
-            width: 640,
-            height: 480
+            width: 800,
+            height: 600
         });
         
         await camera.start();
