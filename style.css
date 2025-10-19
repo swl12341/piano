@@ -1,0 +1,257 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+#startButton {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+}
+
+#startButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+#startButton:active {
+    transform: translateY(0);
+}
+
+.canvas-container {
+    display: inline-block;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+#outputCanvas {
+    display: block;
+    background: #000;
+    border-radius: 12px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    #outputCanvas {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+    }
+    
+    #startButton {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+}
+
+/* 动画效果 */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.playing {
+    animation: pulse 1s infinite;
+}
+
+/* 错误和成功消息样式 */
+.error-message, .success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+.error-message {
+    border-color: #ff6b6b;
+}
+
+.success-message {
+    border-color: #51cf66;
+}
+
+.error-message h3 {
+    color: #ff6b6b;
+    margin-top: 0;
+}
+
+.success-message h3 {
+    color: #51cf66;
+    margin-top: 0;
+}
+
+.error-details {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin: 10px 0;
+}
+
+.error-message button, .success-message button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.error-message button:hover, .success-message button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* 按钮禁用状态 */
+#startButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#startButton:disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* 使用说明样式 */
+.instructions {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.instructions h3 {
+    margin-top: 0;
+    color: #FFD700;
+    font-size: 1.3em;
+}
+
+.instructions ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.instructions li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    padding-left: 25px;
+}
+
+.instructions li:last-child {
+    border-bottom: none;
+}
+
+.instructions li::before {
+    content: "🎵";
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+.instructions li:nth-child(2)::before {
+    content: "📷";
+}
+
+.instructions li:nth-child(3)::before {
+    content: "✋";
+}
+
+.instructions li:nth-child(4)::before {
+    content: "🎼";
+}
+
+/* 库加载错误样式 */
+.library-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 107, 107, 0.95);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 2px solid #ff6b6b;
+}
+
+.library-error h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.library-error button {
+    background: white;
+    color: #ff6b6b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.library-error button:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}

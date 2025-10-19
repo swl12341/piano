@@ -1,0 +1,18 @@
+# MCP 服务器环境变量示例
+# 复制此内容到 .env 文件并填入您的实际值
+
+# Brave 搜索 API 密钥
+BRAVE_API_KEY=your-brave-api-key-here
+
+# GitHub 个人访问令牌
+GITHUB_PERSONAL_ACCESS_TOKEN=your-github-token-here
+
+# 数据库连接字符串
+POSTGRES_CONNECTION_STRING=postgresql://user:password@localhost:5432/database
+
+# 其他API密钥
+OPENAI_API_KEY=your-openai-key-here
+ANTHROPIC_API_KEY=your-anthropic-key-here
+
+# 调试模式
+DEBUG=true

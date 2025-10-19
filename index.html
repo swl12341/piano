@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特雷门手部控制器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>特雷门手部控制器</h1>
+        <p>使用您的手在空中演奏音乐！将食指垂直移动来控制音调。</p>
+        
+        <div class="instructions">
+            <h3>📋 使用说明</h3>
+            <ul>
+                <li>点击"开始演奏"按钮</li>
+                <li>允许浏览器访问您的摄像头</li>
+                <li>将手伸到摄像头前</li>
+                <li>移动食指的垂直位置来控制音调</li>
+            </ul>
+        </div>
+        
+        <button id="startButton">开始演奏</button>
+        
+        <div class="canvas-container">
+            <canvas id="outputCanvas" width="640" height="480"></canvas>
+        </div>
+        
+        <video id="webcam" style="display: none;"></video>
+    </div>
+
+    <!-- 引入必要的库 -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    
+    <!-- Tone.js - 使用多个CDN作为备用 -->
+    <script>
+        // 检查Tone.js是否加载成功
+        function checkToneLoaded() {
+            if (typeof Tone === 'undefined') {
+                console.error('Tone.js 加载失败，尝试备用CDN...');
+                loadBackupTone();
+            } else {
+                console.log('Tone.js 加载成功');
+            }
+        }
+        
+        function loadBackupTone() {
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/tone@14.7.77/build/Tone.min.js';
+            script.onload = () => {
+                console.log('备用 Tone.js CDN 加载成功');
+            };
+            script.onerror = () => {
+                console.error('所有 Tone.js CDN 都加载失败');
+                showLibraryError();
+            };
+            document.head.appendChild(script);
+        }
+        
+        function showLibraryError() {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'library-error';
+            errorDiv.innerHTML = `
+                <h3>⚠️ 库加载失败</h3>
+                <p>无法加载 Tone.js 音频库。请检查网络连接或刷新页面重试。</p>
+                <button onclick="location.reload()">刷新页面</button>
+            `;
+            document.querySelector('.container').appendChild(errorDiv);
+        }
+    </script>
+    
+    <!-- 主要 Tone.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.min.js" crossorigin="anonymous"></script>
+    
+    <!-- 延迟加载主脚本，确保所有库都已加载 -->
+    <script>
+        // 等待所有库加载完成
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (typeof Tone !== 'undefined' && typeof Hands !== 'undefined') {
+                    console.log('所有库加载完成，启动应用程序');
+                    // 动态加载主脚本
+                    const script = document.createElement('script');
+                    script.src = 'script.js';
+                    document.body.appendChild(script);
+                } else {
+                    console.error('部分库未加载完成');
+                    showLibraryError();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

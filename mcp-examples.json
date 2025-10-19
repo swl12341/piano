@@ -1,0 +1,72 @@
+{
+  "mcpServers": {
+    // 文件系统访问服务器
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/yourname/Documents"],
+      "description": "访问指定目录的文件系统"
+    },
+
+    // 网页抓取服务器
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "description": "抓取网页内容和API数据"
+    },
+
+    // Brave搜索服务器
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "your-brave-api-key-here"
+      },
+      "description": "使用Brave搜索引擎"
+    },
+
+    // GitHub服务器
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token-here"
+      },
+      "description": "访问GitHub仓库和代码"
+    },
+
+    // SQLite数据库服务器
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "/path/to/database.db"],
+      "description": "访问SQLite数据库"
+    },
+
+    // PostgreSQL数据库服务器
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/database"
+      },
+      "description": "访问PostgreSQL数据库"
+    },
+
+    // 内存服务器（用于临时数据存储）
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "临时数据存储和检索"
+    },
+
+    // 自定义Python服务器示例
+    "custom-python": {
+      "command": "python",
+      "args": ["/path/to/your/custom-mcp-server.py"],
+      "env": {
+        "API_KEY": "your-api-key",
+        "DEBUG": "true"
+      },
+      "description": "自定义Python MCP服务器"
+    }
+  }
+}
